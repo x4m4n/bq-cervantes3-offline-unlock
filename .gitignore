@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.log
+# Firmware, backups and device-private data must stay out of this repository.
+*.img
+*.asc
+*.zip
+*.tar
+*.tar.gz
+*.bin
+bqupdate/
+backups/
+device-data/
