@@ -18,13 +18,15 @@ Use the provided page and extensionless `/probe` URL. Check for the exact filena
 
 ## The marker endpoint returns 403
 
-Marker mode is intentionally disabled by default. Stop the server and restart with `--enable-marker`, using the same bind address and port. This flag enables only the fixed marker route; the server accepts no arbitrary destination or body.
+Marker mode is intentionally disabled by default. Stop the server and restart with `--enable-marker`, using the same bind address and port. This flag enables the two fixed marker routes `/marker` and `/marker-legacy`; the server accepts no arbitrary destination or body.
 
 ## There is no already-authorized message
 
 Exit the browser and insert/reinsert a microSD card with no update folder while the normal application is running. The confirmation is triggered by SD insertion, not by reconnecting USB.
 
 If the probe succeeded but authorization does not, record the model, installed stock version, download result and SD-insertion message. A patched browser, different hardware, filesystem permissions or deployed firmware differences may prevent the private write. Do not assume compatibility with another model from similar source alone.
+
+Check the [marker compatibility table](compatibility.md). For example, bqOS 5.1.0 checks `hackers_ok`, so writing only `hackers_e60q22_ok` does not produce its authorization message.
 
 ## The updater remains on “Preparing update”
 

@@ -7,7 +7,7 @@
 
 Create the folder _bq_probe.acsm on the reader's USB-visible internal storage.
 Default mode writes only a harmless public-storage probe through the reader.
---enable-marker additionally offers the source-confirmed Cervantes 3 marker.
+--enable-marker offers two separate, model-specific authorization downloads.
 No firmware, startup scripts, keys, or account registration are served.
 """
 import argparse, json
@@ -19,6 +19,11 @@ PROBE_NAME = 'bq_download_probe'
 PROBE_BODY = b'BQ browser download path probe: public storage only.\n'
 PROBE_FILENAME = FOLDER + '/../' + PROBE_NAME
 MARKER_FILENAME = FOLDER + '/../../private/hackers_e60q22_ok'
+LEGACY_MARKER_FILENAME = FOLDER + '/../../private/hackers_ok'
+MARKER_ROUTES = {
+    '/marker': MARKER_FILENAME,
+    '/marker-legacy': LEGACY_MARKER_FILENAME,
+}
 
 def handler_class(enable_marker=False):
     class Handler(BaseHTTPRequestHandler):
@@ -37,7 +42,13 @@ def handler_class(enable_marker=False):
 <p>Check through USB that <b>bq_download_probe</b> appeared next to that folder and contains the expected text.</p>
 '''
                 if enable_marker:
-                    message += '<p>Only after the public probe succeeds:</p><p><a href="/marker">2. Write the Cervantes 3 authorization marker</a></p><p>This writes two bytes, ok, to the private authorization file. It does not flash firmware.</p>'
+                    message += '''<p>Only after the public probe succeeds, choose the marker for your reader:</p>
+<form action="/marker-legacy" method="get"><button type="submit" style="font:inherit;padding:12px">Write hackers_ok</button></form>
+<p>bqOS 5.0.0 / 5.0.2 / 5.1.0; or Cervantes Touch / Touch Light (including Fnac equivalents) on later published versions.</p>
+<form action="/marker" method="get"><button type="submit" style="font:inherit;padding:12px">Write hackers_e60q22_ok</button></form>
+<p>Cervantes 2013 on bqOS 5.2.0 or later; Cervantes 3 on 6.x / 7.x; Cervantes 4 on 7.x.</p>
+<p>The choice depends on model as well as version. Source checked through bqOS 7.0.2. Device installation confirmed only on Cervantes 3 with 6.0.3.</p>
+<p>Each button downloads one file containing two bytes, ok. It does not flash firmware. Exit the browser and reinsert an empty microSD to check authorization.</p>'''
                 else:
                     message += '<p>Authorization-marker download is disabled in this run.</p>'
                 message += '</body></html>'
@@ -45,10 +56,10 @@ def handler_class(enable_marker=False):
             elif path == '/probe':
                 code,content_type,body = 200,'application/octet-stream',PROBE_BODY
                 filename=PROBE_FILENAME
-            elif path == '/marker' and enable_marker:
+            elif path in MARKER_ROUTES and enable_marker:
                 code,content_type,body = 200,'application/octet-stream',b'ok'
-                filename=MARKER_FILENAME
-            elif path == '/marker':
+                filename=MARKER_ROUTES[path]
+            elif path in MARKER_ROUTES:
                 code,content_type,body = 403,'text/plain; charset=utf-8',b'Marker disabled. Run the public-storage probe first.\n'
             else:
                 code,content_type,body = 404,'text/plain; charset=utf-8',b'Unknown endpoint\n'

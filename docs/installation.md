@@ -70,7 +70,7 @@ Stop the first server with Ctrl+C. Start marker mode:
 python server.py --bind 192.168.1.100 --port 8000 --enable-marker
 ```
 
-Visit the same page on the reader and select **Write the Cervantes 3 authorization marker**. Wait for completion and exit the browser. Keep the download connection stable; the browser's error/cancel paths can remove the destination.
+Visit the same page on the reader and select **Write hackers_e60q22_ok** for Cervantes 3. A second button, **Write hackers_ok**, supports the older source-defined marker; see [compatibility](compatibility.md) before using it on another model. Each button downloads one marker, not both. Wait for completion and exit the browser. Keep the download connection stable; the browser's error/cancel paths can remove the destination.
 
 The `/marker` response supplies:
 

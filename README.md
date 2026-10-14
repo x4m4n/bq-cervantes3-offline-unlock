@@ -36,7 +36,7 @@ See [the source walkthrough](docs/how-it-works.md) for pinned BQ source referenc
 - A microSD card and the original Cervantes 3 developer **initial-installation** package for 6.0.3.
 - A backup of your books/files and reliable power during installation.
 
-The Python server uses only the standard library. It serves three fixed routes and cannot serve arbitrary computer files. Marker mode is disabled by default.
+The Python server uses only the standard library. It serves four fixed routes and cannot serve arbitrary computer files. Marker mode is disabled by default. When enabled, two separate buttons offer `hackers_ok` and `hackers_e60q22_ok`; use the [model/version compatibility table](docs/compatibility.md) to choose. Only the Cervantes 3 installation has been confirmed on a device.
 
 ## Steps
 
@@ -56,7 +56,7 @@ Follow the [complete installation guide](docs/installation.md). The short versio
    python server.py --bind 192.168.1.100 --port 8000 --enable-marker
    ```
 
-5. Visit the same page and select the authorization-marker download. Exit the browser and insert/reinsert a microSD card without an update folder, while the reader is running normally. Confirm the **already authorised** message, then stop the server.
+5. Visit the same page and select **Write hackers_e60q22_ok** for Cervantes 3. The other button, **Write hackers_ok**, is for older firmware/models listed in the compatibility table. Each button downloads only its named marker. Exit the browser and insert/reinsert a microSD card without an update folder, while the reader is running normally. Confirm the **already authorised** message, then stop the server.
 6. Put the original `bqupdate` folder on the microSD root. Power off the reader, insert the card, hold Home and press Power. Release Power when the green LED comes on; keep Home held until the updater starts. Let installation finish without interruption.
 
 On systems where the Python command is `python3` or `py -3`, use that instead of `python`.
@@ -74,6 +74,7 @@ This project does not decrypt, patch, directly flash, or bypass the firmware sig
 - [`server.py`](server.py): fixed probe and opt-in marker responses.
 - [Installation guide](docs/installation.md): commands, firmware links, checks and expected results.
 - [How it works](docs/how-it-works.md): browser behavior and authorization source references.
+- [Compatibility](docs/compatibility.md): marker selection by model and published firmware version.
 - [Troubleshooting](docs/troubleshooting.md): network, download and updater problems.
 - [Firmware findings](docs/firmware-findings.md): package hashes and OpenPGP metadata.
 

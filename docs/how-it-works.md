@@ -67,7 +67,7 @@ There is **no newline**: the body is two bytes, hexadecimal `6f 6b`. The applica
 
 The reader visits a local HTTP URL entered by the owner. No BQ hostname redirection, account registration, serial number, service response token or TLS certificate is needed. The private service implementation was not available in the examined public repository, so its full original protocol was not reconstructed.
 
-The server sends a filename and a body. The browser opens the destination and writes the bytes using its own filesystem permissions. It does not mount the private partition on the computer or expose it over USB.
+The server sends a filename and a body. The browser opens the destination and writes the bytes using its own filesystem permissions. It does not mount the private partition on the computer or expose it over USB. The newer server also offers `/marker-legacy`, which writes `hackers_ok`; see [compatibility](compatibility.md) for the source-defined model/version selection.
 
 ## 6. Authorization and firmware verification are separate
 
